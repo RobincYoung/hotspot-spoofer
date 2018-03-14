@@ -1,4 +1,1 @@
-This is an example file.
-
-Hello!
-
+I recomend using maincode rather than maincodewithserver
