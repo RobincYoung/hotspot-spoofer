@@ -1,14 +1,17 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h> 
 #include <ESP8266WebServer.h>
-
+#include <DNSServer.h>
+#include <ESP8266mDNS.h>
+#include <WiFi.h>
+DNSServer dnsServer;
 /*list of ssid's to cycle through*/
 char* names[] = {"Im watching you", "secret camera #%d", "I see you","MI5reconvanID#%d","loading..." , "no free wifi because Tories", "yell CARROT for password", "FBIvanID#%d", "Fellowship of the Ping", "get off my LAN! darn kids!", "free wifi", "no free wifi because brexit", NULL};
 int n = 0;
 unsigned long ms = 0;
 unsigned long pms = 0;
 /*time between ssid change in miliseconds*/
-unsigned long timeintvl = 30000;
+unsigned long timeintvl = 120000;
 
 
 ESP8266WebServer server(80);
@@ -17,7 +20,7 @@ ESP8266WebServer server(80);
  * connected to this access point to see it.
  */
 void handleRoot() {
-  server.send(200, "text/html", "<h1>You are connected</h1>");
+  server.send(200, "text/html", "<h1>ha!</h1>");
 }
 
 void setup() {
@@ -29,10 +32,12 @@ void setup() {
   server.begin();
   Serial.println("HTTP server started");
  randomSeed(analogRead(0));
+  dnsServer.start(53, "*", WiFi.softAPIP());
 }
 
 void loop() {
   server.handleClient();
+  dnsServer.processNextRequest();
   if (ms > timeintvl)
   {
    char buff[100];
