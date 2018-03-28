@@ -3,7 +3,7 @@
 #include <ESP8266WebServer.h>
 #include <DNSServer.h>
 #include <ESP8266mDNS.h>
-#include <WiFi.h>
+
 DNSServer dnsServer;
 /*list of ssid's to cycle through*/
 char* names[] = {"Im watching you", "secret camera #%d", "I see you","MI5reconvanID#%d","loading..." , "no free wifi because Tories", "yell CARROT for password", "FBIvanID#%d", "Fellowship of the Ping", "get off my LAN! darn kids!", "free wifi", "no free wifi because brexit", NULL};
@@ -38,7 +38,7 @@ void setup() {
 void loop() {
   server.handleClient();
   dnsServer.processNextRequest();
-  if (ms > timeintvl)
+  if (ms > timeintvl and WiFi.softAPgetStationNum() == 0)
   {
    char buff[100];
    sprintf(buff, names[n], random(1000, 9999));
