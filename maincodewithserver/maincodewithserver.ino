@@ -11,7 +11,7 @@ int n = 0;
 unsigned long ms = 0;
 unsigned long pms = 0;
 /*time between ssid change in miliseconds*/
-unsigned long timeintvl = 120000;
+unsigned long timeintvl = 30000;
 
 
 ESP8266WebServer server(80);
