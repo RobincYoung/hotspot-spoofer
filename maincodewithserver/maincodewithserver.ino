@@ -21,6 +21,10 @@ ESP8266WebServer server(80);
  */
 void handleRoot() {
   server.send(200, "text/html", "<h1>ha!</h1>");
+} 
+
+void handletest() {
+  server.send(200, "text/html", "<h1>example</h1>");
 }
 
 void setup() {
@@ -28,7 +32,8 @@ void setup() {
   Serial.begin(115200);
   Serial.println();
   Serial.print("Configuring access point...");
-  server.on("/", handleRoot);
+  server.on("/test", handletest);
+  server.onNotFound ( handleRoot );
   server.begin();
   Serial.println("HTTP server started");
  randomSeed(analogRead(0));
