@@ -16,14 +16,13 @@ unsigned long timeintvl = 30000;
 
 ESP8266WebServer server(80);
 
-/* Just a little test message.  Go to http://192.168.4.1 in a web browser
- * connected to this access point to see it.
- */
 void handleRoot() {
+  /*incert html for the default page (this will apear if the text after the "/" doesn't match any other pages)*/
   server.send(200, "text/html", "<h1>ha!</h1>");
 } 
 
 void handletest() {
+  /*just a random example page*/
   server.send(200, "text/html", "<h1>example</h1>");
 }
 
@@ -32,12 +31,12 @@ void setup() {
   Serial.begin(115200);
   Serial.println();
   Serial.print("Configuring access point...");
-  server.on("/test", handletest);
-  server.onNotFound ( handleRoot );
+  server.on("/test", handletest);/*you can replace the "/test" with /what ever you want and "handletest" with the name of a function (see "void handletest") to have a unique responce for that page"*/
+  server.onNotFound ( handleRoot );/*this is what happens if the url doesn't match anything else(see 404 comment)*/
   server.begin();
   Serial.println("HTTP server started");
- randomSeed(analogRead(0));
-  dnsServer.start(53, "*", WiFi.softAPIP());
+  randomSeed(analogRead(0));
+  dnsServer.start(53, "*", WiFi.softAPIP());/*responds to all dns requests with its own ip address*/
 }
 
 void loop() {
