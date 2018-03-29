@@ -15,7 +15,7 @@ void loop()
    char buff[100];
    sprintf(buff, names[n], random(1000, 9999));
    /*list of names to use password for*/
-   if (names[n] == "yell CARROT for password" or names[n] == "BTE-IT" or names[n] == "no free wifi because Tories" or names[n] == "no free wifi because brexit")
+   if (names[n] == "yell CARROT for password" or names[n] == "no free wifi because Tories" or names[n] == "no free wifi because brexit")
    {
    WiFi.softAP(buff, "offmylan"); 
    }
