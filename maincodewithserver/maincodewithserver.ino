@@ -42,7 +42,7 @@ void setup() {
 void loop() {
   server.handleClient();
   dnsServer.processNextRequest();
-  if (ms > timeintvl and WiFi.softAPgetStationNum() == 0)
+  if ((millis() - pms) > timeintvl and WiFi.softAPgetStationNum() == 0)
   {
    char buff[100];
    sprintf(buff, names[n], random(1000, 9999));
@@ -62,8 +62,6 @@ void loop() {
    {
     n = 0;
    }
-   ms = 0;
+    pms = millis();
   }
-  ms = ms + (millis()-pms);
-  pms = millis();
 }
